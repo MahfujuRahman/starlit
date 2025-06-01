@@ -10,27 +10,27 @@
             </div>
         </div>
         <div class="row ">
-            <div class="col-lg-4">
-                <div class="ltn__testimonial-item ltn__testimonial-item-7">
-                    <div class="ltn__testimoni-info">
-                        <div class="ltn__testimoni-info-inner">
-                            <div class="ltn__testimoni-img">
-                                <img src="{{ asset('assets/frontend') }}/img/testimonial/Abul-Kashem.png" alt="#">
+            @foreach ($testimonials as $item)
+                <div class="col-lg-4">
+                    <div class="ltn__testimonial-item ltn__testimonial-item-7">
+                        <div class="ltn__testimoni-info">
+                            <div class="ltn__testimoni-info-inner">
+                                {{-- <div class="ltn__testimoni-img">
+                                    <img src="{{ asset('assets/frontend') }}/img/testimonial/Abul-Kashem.png" alt="#">
+                                </div> --}}
+                                <div class="ltn__testimoni-name-designation">
+                                    <h5>{{$item?->name}}</h5>
+                                    <label>{{$item?->company_location}}</label>
+                                    <label>{{$item?->designation}}, {{ $item?->company}}</label>
+                                </div>
                             </div>
-                            <div class="ltn__testimoni-name-designation">
-                                <h5>Abul Kashem</h5>
-                                <label>Landowner, Starlit Choyon</label>
-                                <label>Ex-Chairman, CODEC</label>
-                            </div>
+                            <p><i class="flaticon-left-quote-1"></i> 
+                                {{$item?->feedback}}</p>
                         </div>
-                        <p><i class="flaticon-left-quote-1"></i> 
-                            I always appreciate the firmness in commitment of Starlit Homes ltd. 
-                            Their management is generous and benevolent. 
-                            They are friendly and their dealing is transparent.</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
+            @endforeach
+            {{-- <div class="col-lg-4">
                 <div class="ltn__testimonial-item ltn__testimonial-item-7">
                     <div class="ltn__testimoni-info">
                         <div class="ltn__testimoni-info-inner">
@@ -69,7 +69,7 @@
                              onstruction field that allures me to make a solid contract with them.</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--  -->
         </div>
     </div>

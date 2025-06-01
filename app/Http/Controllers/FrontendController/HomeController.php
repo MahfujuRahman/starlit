@@ -13,6 +13,7 @@ use App\Modules\Management\AtAGlanceManagement\AtAGlance\Models\Model as AtaGlan
 use App\Modules\Management\OurTeamManagement\OurTeam\Models\Model as OurTeam;
 use App\Modules\Management\TodaySellsManagement\TodaySells\Models\Model as TodaySells;
 use App\Modules\Management\OurServiceManagement\OurService\Models\Model as OurService;
+use App\Modules\Management\TestimonialManagement\Testimonial\Models\Model as Testimonial;
 
 
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
         $our_team = OurTeam::latest()->limit(4)->get();
         $today_sells = TodaySells::latest()->first();
         $our_services = OurService::latest()->limit(3)->get();
+        $testimonials = Testimonial::latest()->limit(3)->get();
         // dd($our_services->toArray());
         // dd($about_us?->video_url);
         return view('frontend.pages.home.home', 
@@ -36,6 +38,7 @@ class HomeController extends Controller
                     'our_team',
                     'today_sells',
                     'our_services',
+                    'testimonials',
                 ));
     }
 

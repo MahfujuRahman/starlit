@@ -11,9 +11,21 @@
         </div>
         <div class="row ltn__custom-gutter--- justify-content-center">
             @foreach ($our_services as $item)
-                
+                <div class="col-lg-4 col-sm-6 col-12">
+                    <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
+                        <div class="ltn__feature-icon">
+                            <!-- <span><i class="flaticon-house"></i></span> -->
+                            <img src="{{ asset($item->image) }}" alt="#">
+                        </div>
+                        <div class="ltn__feature-info">
+                            <h3><a href="service-details.html">{{ $item?->title}}</a></h3>
+                            <p>{{$item?->description }}</p>
+                            <a class="ltn__service-btn" href="{{$item?->url}}">Find A Home <i class="flaticon-right-arrow"></i></a>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-            <div class="col-lg-4 col-sm-6 col-12">
+            {{-- <div class="col-lg-4 col-sm-6 col-12">
                 <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
                     <div class="ltn__feature-icon">
                         <!-- <span><i class="flaticon-house"></i></span> -->
@@ -51,7 +63,7 @@
                         <a class="ltn__service-btn" href="service-details.html">Find A Home <i class="flaticon-right-arrow"></i></a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div> 
  </div>
