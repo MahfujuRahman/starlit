@@ -10,6 +10,9 @@
             </div>
         </div>
         <div class="row ltn__custom-gutter--- justify-content-center">
+            @foreach ($our_services as $item)
+                
+            @endforeach
             <div class="col-lg-4 col-sm-6 col-12">
                 <div class="ltn__feature-item ltn__feature-item-6 text-center bg-white  box-shadow-1">
                     <div class="ltn__feature-icon">

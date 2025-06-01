@@ -6,21 +6,26 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">About Us</h6>
-                        <h1 class="section-title">Today Sells Properties</h1>
-                        <p>Houzez allow you to design unlimited panels and real estate custom
-                            forms to capture leads and keep record of all information</p>
+                        <h1 class="section-title">{{$today_sells->title}}</h1>
+                        <p>{{ $today_sells->description }}</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before clearfix">
-                        <li> Live Music Cocerts at Luviana</li>
-                        <li>Our SecretIsland Boat Tour is Just for You</li>
+                        @foreach ($today_sells->features as $item)
+                            <li> {{ $item['title']}}</li>
+                            
+                        @endforeach
+                        {{-- <li>Our SecretIsland Boat Tour is Just for You</li>
                         <li>Live Music Cocerts at Luviana</li>
-                        <li>Live Music Cocerts at Luviana</li>
+                        <li>Live Music Cocerts at Luviana</li> --}}
                     </ul>
+
                     <ul class="ltn__list-item-2 ltn__list-item-2-before ltn__flat-info">
-                        <li><span>3 <i class="flaticon-bed"></i></span>
-                            Bedrooms
-                        </li>
-                        <li><span>2 <i class="flaticon-clean"></i></span>
+                        @foreach ($today_sells->key_features as $item)
+                            <li><span>{{$item['number']}} <i class="{{$item['icon']}}"></i></span>
+                                {{$item['title']}}
+                            </li>
+                        @endforeach
+                        {{-- <li><span>2 <i class="flaticon-clean"></i></span>
                             Bathrooms
                         </li>
                         <li><span>2 <i class="flaticon-car"></i></span>
@@ -28,9 +33,16 @@
                         </li>
                         <li><span>3450 <i class="flaticon-square-shape-design-interface-tool-symbol"></i></span>
                             square Ft
-                        </li>
+                        </li> --}}
                     </ul>
                     <ul class="ltn__list-item-2 ltn__list-item-2-before--- ltn__list-item-2-img mb-50">
+                        {{-- @foreach ($today_sells?->image_gallery_left as $item)
+                            <li>
+                                <a href="{{ asset('assets/frontend') }}/img/img-slide/11.jpg" data-rel="lightcase:myCollection">
+                                    <img src="{{ asset('assets/frontend') }}/img/img-slide/11.jpg" alt="Image">
+                                </a>
+                            </li>
+                        @endforeach --}}
                         <li>
                             <a href="{{ asset('assets/frontend') }}/img/img-slide/11.jpg" data-rel="lightcase:myCollection">
                                 <img src="{{ asset('assets/frontend') }}/img/img-slide/11.jpg" alt="Image">

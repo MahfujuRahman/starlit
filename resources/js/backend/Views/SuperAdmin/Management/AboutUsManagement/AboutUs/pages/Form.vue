@@ -220,6 +220,9 @@ export default {
             if (field.name == value[0]) {
               this.form_fields[index].value = value[1];
             }
+            if (field.name == "description" && value[0] == "description") {
+              $("#description").summernote("code", value[1]);
+            }
           });
         });
 
@@ -250,6 +253,7 @@ export default {
 
       this.set_only_latest_data(true);
       if (this.param_id) {
+        this.setSummerEditor();
         let response = await this.update($event);
         // await this.get_all();
         if ([200, 201].includes(response.status)) {
@@ -257,6 +261,7 @@ export default {
           this.$router.push({ name: `Details${this.setup.route_prefix}` });
         }
       } else {
+        this.setSummerEditor();
         let response = await this.create($event);
         // await this.get_all();
         if ([200, 201].includes(response.status)) {
@@ -265,6 +270,15 @@ export default {
         }
       }
     },
+
+    setSummerEditor() {
+      var markupStr = $("#description").summernote("code");
+      var target = document.createElement("input");
+      target.setAttribute("name", "description");
+      target.value = markupStr;
+      document.getElementById("description").appendChild(target);
+    },
+
     add_features_row: function () {
       console.log("features_data", this.features_data.length);
       if (this.features_data.length >= 4) {

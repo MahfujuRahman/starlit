@@ -5,7 +5,7 @@
             <div class="col-lg-6 align-self-center">
                 <div class="about-us-img-wrap about-img-left">
                     {{-- <img src="{{ asset('assets/frontend') }}/img/others/7.png" alt="About Us Image"> --}}
-                    <img src="{{ asset('assets/frontend' . ($about_us?->primary_image	 ?? '/img/others/7.png')) }}" alt="About Us Image">
+                    <img src="{{ asset($about_us?->primary_image	 ?? '/img/others/7.png') }}" alt="About Us Image">
                     <div class="about-us-img-info about-us-img-info-2 about-us-img-info-3">
                         
                         <div class="ltn__video-img ltn__animation-pulse1">
@@ -13,7 +13,7 @@
                                 dd($about_us);
                             @endphp --}}
                             {{-- <img src="{{ asset('assets/frontend') }}/img/others/8.png" alt="video popup bg image"> --}}
-                            <img src="{{ asset('assets/frontend' . ($about_us?->secondery_image	 ?? '/img/others/8.png')) }}" alt="video popup bg image">
+                            <img src="{{ asset($about_us?->secondery_image	 ?? '/img/others/8.png') }}" alt="video popup bg image">
                             <a class="ltn__video-icon-2 ltn__video-icon-2-border---" href="{{$about_us?->video_url}}"  data-rel="lightcase:myCollection">
                                 <i class="fa fa-play"></i>
                             </a>

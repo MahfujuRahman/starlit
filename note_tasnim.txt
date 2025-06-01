@@ -1,3 +1,7 @@
 1/ Today sells - multiple image for single column store problem
-2/ testimonial - textarea problem
 3/ Blog - Tags field stort problem
+
+
+---------------- frontend ----------------
+** multiple image show korano hoy ni
+** gallery image set kora niye shomossa

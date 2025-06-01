@@ -10,26 +10,28 @@
             </div>
         </div>
         <div class="row  ">
+            @foreach ($our_team as $item)
             <div class="col-lg-3">
                 <div class="ltn__team-item ltn__team-item-3---">
                     <div class="team-img">
-                        <img src="{{ asset('assets/frontend') }}/img/team/4.jpg" alt="Image">
+                        <img src="{{ asset($item->image) }}" alt="team_image">
                     </div>
                     <div class="team-info">
-                        <h4><a href="#">Engr. Kazi Abid Hasan Siddique</a></h4>
+                        <h4><a href="#">{{$item->name}}</a></h4>
                         <h6 class="ltn__secondary-color"></h6>
                         <div class="ltn__social-media">
                             <ul>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                @foreach ($item->social_link as $socil_item)
+                                    <li><a href="{{$socil_item['title']}}"><i class="{{$socil_item['icon']}}"></i></a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="ltn__team-item ltn__team-item-3---">
+            @endforeach
+            {{-- <div class="col-lg-3">
+                <div class="ltn__team-item ltn__team-item-3">
                     <div class="team-img">
                         <img src="{{ asset('assets/frontend') }}/img/team/2.jpg" alt="Image">
                     </div>
@@ -45,8 +47,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
+            </div> --}}
+            {{-- <div class="col-lg-3">
                 <div class="ltn__team-item ltn__team-item-3---">
                     <div class="team-img">
                         <img src="{{ asset('assets/frontend') }}/img/team/3.jpg" alt="Image">
@@ -63,8 +65,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
+            </div> --}}
+            {{-- <div class="col-lg-3">
                 <div class="ltn__team-item ltn__team-item-3---">
                     <div class="team-img">
                         <img src="{{ asset('assets/frontend') }}/img/team/1.jpg" alt="Image">
@@ -81,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             
             <!--  -->
         </div>

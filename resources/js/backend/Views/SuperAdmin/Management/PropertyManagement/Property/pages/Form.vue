@@ -508,7 +508,6 @@
                         {{ errors["floor_plan_details"][index].description }}
                       </div>
                     </div>
-                  </div>
                 </div>
                 <div
                   class="col-md-2 d-flex align-items-center justify-content-center"
