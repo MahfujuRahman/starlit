@@ -6,11 +6,11 @@
                 <div class="about-us-info-wrap">
                     <div class="section-title-area ltn__section-title-2--- mb-30">
                         <h6 class="section-subtitle section-subtitle-2 ltn__secondary-color">About Us</h6>
-                        <h1 class="section-title">{{$today_sells->title}}</h1>
-                        <p>{{ $today_sells->description }}</p>
+                        <h1 class="section-title">{{$today_sells?->title}}</h1>
+                        <p>{{ $today_sells?->description }}</p>
                     </div>
                     <ul class="ltn__list-item-1 ltn__list-item-1-before clearfix">
-                        @foreach ($today_sells->features as $item)
+                        @foreach ($today_sells?->features ?? [] as $item)
                             <li> {{ $item['title']}}</li>
                             
                         @endforeach
@@ -20,7 +20,7 @@
                     </ul>
 
                     <ul class="ltn__list-item-2 ltn__list-item-2-before ltn__flat-info">
-                        @foreach ($today_sells->key_features as $item)
+                        @foreach ($today_sells->key_features ?? [] as $item)
                             <li><span>{{$item['number']}} <i class="{{$item['icon']}}"></i></span>
                                 {{$item['title']}}
                             </li>

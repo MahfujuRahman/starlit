@@ -4,45 +4,155 @@ namespace App\Http\Controllers\FrontendController;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Modules\Management\PropertyManagement\Property\Models\Model as Property;
 
 class PropertiesController extends Controller
 {
     public function index()
     {
-        return view('frontend.pages.properties.properties');
+        $property_category_list = [
+            'Luxury',
+            'Classic',
+            'Welness Communities',
+            'Comercial',
+            'Ongoing',
+            'upcoming',
+            'Completed'
+        ];
+        
+        $properties_data = [];
+        
+        foreach ($property_category_list as $name) {
+            $properties = Property::with('category')
+                ->where('status', 'active')
+                ->whereHas('category', function($q) use ($name) {
+                    $q->where('name', $name);
+                })
+                ->inRandomOrder()
+                ->latest()
+                ->limit(3)
+                ->get();
+        
+            $properties_data[$name] = $properties;
+        }
+        // dd($properties_data['Comercial']);
+        return view('frontend.pages.properties.properties',
+            compact('property_category_list','properties_data')
+        );
     }
     public function luxury()
     
     {
-        return view('frontend.pages.properties.luxury.luxury');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Luxury');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+
+        return view('frontend.pages.properties.luxury.luxury',
+            compact('properties')
+        );
     }
     public function comercial()
     {
-        return view('frontend.pages.properties.comercial.comercial');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Comercial');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.comercial.comercial',
+            compact('properties')
+        );
     }
     public function classic()
     {
-        return view('frontend.pages.properties.classic.classic');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Classic');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.classic.classic',
+            compact('properties')
+        );
     }
     public function wellness()
     {
-        return view('frontend.pages.properties.wellness.wellness');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Welness Communities');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.wellness.wellness',
+            compact('properties')
+        );
     }
     public function ongoing()
     {
-        return view('frontend.pages.properties.ongoing.ongoing');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Ongoing');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.ongoing.ongoing',
+            compact('properties')
+        );
     }
     public function upgoing()
     {
-        return view('frontend.pages.properties.upgoing.upgoing');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'upcoming');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.upgoing.upgoing',
+            compact('properties')
+        );
     }
     public function completed()
     {
-        return view('frontend.pages.properties.completed.completed');
+        $properties = Property::with('category')
+            ->where('status', 'active')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'Completed');
+            })
+            ->inRandomOrder()
+            ->latest()
+            ->get();
+        return view('frontend.pages.properties.completed.completed',
+            compact('properties')
+        );
     }
-    public function details()
+    public function details(Request $request, $id)
     {
-        return view('frontend.pages.properties.property_details.property_details');
+        // Check if it's numeric
+        if (!is_numeric($id)) {
+            abort(404); // or return redirect()->back()->with('error', 'Invalid ID');
+        }
+        
+        $property = Property::with('category')
+            ->where('id', $id)
+            ->where('status', 'active')
+            ->firstOrFail();
+        // dd($property);
+        return view('frontend.pages.properties.property_details.property_details', compact('property'));
     }
 
 }

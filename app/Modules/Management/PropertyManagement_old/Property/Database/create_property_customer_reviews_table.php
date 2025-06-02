@@ -7,15 +7,19 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     php artisan migrate --path='\App\Modules\Management\BlogBlogCategory\Database\create_blog_blog_categories_table.php'
+     php artisan migrate --path='\App\Modules\Management\PropertyCustomerReview\Database\create_property_customer_reviews_table.php'
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('blog_blog_categories', function (Blueprint $table) {
+        Schema::create('property_customer_reviews', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('blog_id')->nullable();
-            $table->bigInteger('blog_category_id')->nullable();
+            $table->bigInteger('property_id')->nullable();
+            $table->string('comment', 100)->nullable();
+            $table->string('name', 100)->nullable();
+            $table->string('email', 50)->nullable();
+            $table->string('website', 100)->nullable();
+            $table->integer('rating')->nullable();
 
             $table->bigInteger('creator')->unsigned()->nullable();
             $table->string('slug', 50)->nullable();
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog_blog_categories');
+        Schema::dropIfExists('property_customer_reviews');
     }
 };

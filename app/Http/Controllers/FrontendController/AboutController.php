@@ -13,6 +13,7 @@ use App\Modules\Management\TodaySellsManagement\TodaySells\Models\Model as Today
 use App\Modules\Management\OurServiceManagement\OurService\Models\Model as OurService;
 use App\Modules\Management\TestimonialManagement\Testimonial\Models\Model as Testimonial;
 use App\Modules\Management\BlogManagement\Blog\Models\Model as Blog;
+use App\Modules\Management\PropertyManagement\Property\Models\Model as Property;
 
 class AboutController extends Controller
 {
@@ -27,10 +28,14 @@ class AboutController extends Controller
         $today_sells = TodaySells::latest()->first();
         $our_services = OurService::latest()->limit(3)->get();
         $testimonials = Testimonial::latest()->limit(3)->get();
-        $blogs = Blog::with('categories')
+        $blogs = Blog::with('blog_category')
                 ->where('status', 'active')
                 ->inRandomOrder()
                 ->get();
+        $properties = Property::with('category')
+                ->where('status', 'active')
+                ->inRandomOrder()
+                ->latest()->limit(3)->get();
         // dd($blogs->toArray());
         // dd($about_us?->video_url);
         // $projects = Project::orderBy('id','DESC')
@@ -39,7 +44,6 @@ class AboutController extends Controller
         //     ])
         //     ->limit(6)->get();
         // dd($projects->toArray());
-        $projects = [];
         return view('frontend.pages.about.about',
             compact(
                 'banner',
@@ -52,6 +56,7 @@ class AboutController extends Controller
                 'our_services',
                 'testimonials',
                 'blogs',
+                'properties',
             ));
     }
     

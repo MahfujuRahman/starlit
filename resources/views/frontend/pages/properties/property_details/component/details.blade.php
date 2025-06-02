@@ -7,27 +7,27 @@
                     <div class="ltn__blog-meta">
                         <ul>
                             <li class="ltn__blog-category">
-                                <a href="#">Featured</a>
+                                <a href="#">{{ $property?->category?->name }}</a>
                             </li>
                             <li class="ltn__blog-category">
-                                <a class="bg-orange" href="#">For Rent</a>
+                                <a class="bg-orange" href="#">For {{ $property?->property_status }}</a>
                             </li>
                             <li class="ltn__blog-date">
-                                <i class="far fa-calendar-alt"></i>May 19, 2021
+                                {{-- <i class="far fa-calendar-alt"></i>{{ $property?->date }} --}}
+                                {{-- <i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($property?->date)->format('F j, Y') }} --}}
+                                @if ($property?->date)
+                                    <i class="far fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($property->date)->format('F j, Y') }}
+                                @endif
                             </li>
                             <li>
                                 <a href="#"><i class="far fa-comments"></i>35 Comments</a>
                             </li>
                         </ul>
                     </div>
-                    <h1>Diamond Manor Apartment</h1>
-                    <label><span class="ltn__secondary-color"><i class="flaticon-pin"></i></span> Belmont Gardens, Chicago</label>
+                    <h1>{{ $property?->property_name }}</h1>
+                    <label><span class="ltn__secondary-color"><i class="flaticon-pin"></i></span> {{ $property?->property_address }}</label>
                     <h4 class="title-2">Description</h4>
-                    <p>Massa tempor nec feugiat nisl pretium. Egestas fringilla phasellus faucibus scelerisque eleifend donec
-                        Porta nibh venenatis cras sed felis eget velit aliquet. Neque volutpat ac tincidunt vitae semper
-                        quis lectus. Turpis in eu mi bibendum neque egestas congue quisque. Sed elementum tempus egestas
-                        sed sed risus pretium quam. Dignissim sodales ut eu sem. Nibh mauris cursus mattis molestee
-                        iaculis at erat pellentesque. Id interdum velit laoreet id donec ultrices tincidunt.</p>
+                    <p>{{ $property?->property_description}}</p>
                     <p>To the left is the modern kitchen with central island, leading through to the unique breakfast family room which feature glass walls and doors out onto the garden and access to the separate utility room.</p>
 
                     <h4 class="title-2">Property Detail</h4>  

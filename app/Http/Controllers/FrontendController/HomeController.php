@@ -31,7 +31,7 @@ class HomeController extends Controller
         $today_sells = TodaySells::latest()->first();
         $our_services = OurService::latest()->limit(3)->get();
         $testimonials = Testimonial::latest()->limit(3)->get();
-        $blogs = Blog::with('categories')
+        $blogs = Blog::with('blog_category')
                 ->where('status', 'active')
                 ->inRandomOrder()
                 ->get();
