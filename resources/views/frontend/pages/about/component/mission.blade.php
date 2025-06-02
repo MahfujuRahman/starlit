@@ -14,22 +14,13 @@
                 <div class="ltn__testimonial-item ltn__testimonial-item-7">
                     <div class="ltn__testimoni-info ">
                         <p class="equal-box"><i class="flaticon-left-quote-1"></i> 
-                            "At Starlite, our mission is to illuminate the path to
-                             homeownership and investment with integrity, innovation,
-                            and excellence. We are dedicated to empowering individuals
-                            and families by providing exceptional real estate solutions
-                            tailored to their unique needs. Through expert guidance,
-                            transparent communication, and a commitment to sustainability,
-                            we aim to create lasting relationships and vibrant communities.
-                            At Starlite, we don’t just find properties; we 
-                            craft experiences, turning aspirations into reality and
-                             transforming houses into homes."</p>
+                            {{ $our_mission?->description}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
                 <div class="about-img-right">
-                    <img class="equal-box" src="{{ asset('assets/frontend') }}/img/others/house1.jpg" alt="About Us Image">
+                    <img class="equal-box" src="{{ asset($our_mission?->primary_image) }}" alt="Our Mission Image">
                 </div>
             </div>
             <!--  -->

@@ -14,6 +14,9 @@ use App\Modules\Management\OurTeamManagement\OurTeam\Models\Model as OurTeam;
 use App\Modules\Management\TodaySellsManagement\TodaySells\Models\Model as TodaySells;
 use App\Modules\Management\OurServiceManagement\OurService\Models\Model as OurService;
 use App\Modules\Management\TestimonialManagement\Testimonial\Models\Model as Testimonial;
+use App\Modules\Management\BlogManagement\Blog\Models\Model as Blog;
+use App\Modules\Management\PropertyManagement\Property\Models\Model as Property;
+
 
 
 
@@ -28,7 +31,15 @@ class HomeController extends Controller
         $today_sells = TodaySells::latest()->first();
         $our_services = OurService::latest()->limit(3)->get();
         $testimonials = Testimonial::latest()->limit(3)->get();
-        // dd($our_services->toArray());
+        $blogs = Blog::with('categories')
+                ->where('status', 'active')
+                ->inRandomOrder()
+                ->get();
+        $properties = Property::with('category')
+                ->where('status', 'active')
+                ->inRandomOrder()
+                ->latest()->limit(3)->get();
+        // dd($properties->toArray());
         // dd($about_us?->video_url);
         return view('frontend.pages.home.home', 
                 compact(
@@ -39,6 +50,9 @@ class HomeController extends Controller
                     'today_sells',
                     'our_services',
                     'testimonials',
+                    'properties',
+                    'blogs',
+
                 ));
     }
 

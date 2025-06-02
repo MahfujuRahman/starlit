@@ -11,38 +11,40 @@
         </div>
         <div class="row  ltn__blog-slider-one-active slick-arrow-1 ltn__blog-item-3-normal">
             <!-- Blog Item -->
-            <div class="col-lg-4">
-                <div class="ltn__blog-item ltn__blog-item-3">
-                    <div class="ltn__blog-img">
-                        <a href="{{ route('news_details') }}"><img src="{{ asset('assets/frontend') }}/img/blog/1.jpg" alt="#"></a>
-                    </div>
-                    <div class="ltn__blog-brief">
-                        <div class="ltn__blog-meta">
-                            <ul>
-                                <li class="ltn__blog-author">
-                                    <a href="#"><i class="far fa-user"></i>by: Admin</a>
-                                </li>
-                                <li class="ltn__blog-tags">
-                                    <a href="#"><i class="fas fa-tags"></i>Decorate</a>
-                                </li>
-                            </ul>
+            @foreach ($blogs as $blog)
+                <div class="col-lg-4">
+                    <div class="ltn__blog-item ltn__blog-item-3">
+                        <div class="ltn__blog-img">
+                            <a href="{{ route('news_details') }}"><img src="{{ asset($blog?->thumbnail_image) }}" alt="#"></a>
                         </div>
-                        <h3 class="ltn__blog-title"><a href="{{ route('news_details') }}">10 Brilliant Ways To Decorate Your Home</a></h3>
-                        <div class="ltn__blog-meta-btn">
+                        <div class="ltn__blog-brief">
                             <div class="ltn__blog-meta">
                                 <ul>
-                                    <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>Dec 01, 2024</li>
+                                    <li class="ltn__blog-author">
+                                        <a href="#"><i class="far fa-user"></i>by: {{ $blog?->writer }}</a>
+                                    </li>
+                                    <li class="ltn__blog-tags">
+                                        <a href="#"><i class="fas fa-tags"></i>{{ $blog?->tags }}</a>
+                                    </li>
                                 </ul>
                             </div>
-                            <div class="ltn__blog-btn">
-                                <a href="{{ route('news_details') }}">Read more</a>
+                            <h3 class="ltn__blog-title"><a href="{{ route('news_details') }}">{{ $blog?->title }}</a></h3>
+                            <div class="ltn__blog-meta-btn">
+                                <div class="ltn__blog-meta">
+                                    <ul>
+                                        <li class="ltn__blog-date"><i class="far fa-calendar-alt"></i>{{ \Carbon\Carbon::parse($blog->publish_date)->format('M d, Y') }}</li>
+                                    </ul>
+                                </div>
+                                <div class="ltn__blog-btn">
+                                    <a href="{{ route('news_details') }}">Read more</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
             <!-- Blog Item -->
-            <div class="col-lg-4">
+            {{-- <div class="col-lg-4">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
                         <a href="{{ route('news_details') }}"><img src="{{ asset('assets/frontend') }}/img/blog/2.jpg" alt="#"></a>
@@ -71,9 +73,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Blog Item -->
-            <div class="col-lg-4">
+            {{-- <div class="col-lg-4">
                 <div class="ltn__blog-item ltn__blog-item-3">
                     <div class="ltn__blog-img">
                         <a href="{{ route('news_details') }}"><img src="{{ asset('assets/frontend') }}/img/blog/3.jpg" alt="#"></a>
@@ -102,7 +104,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

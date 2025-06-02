@@ -5,6 +5,7 @@ namespace App\Modules\Management\PropertyManagement\Property\Models;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Modules\Management\PropertyManagement\PropertyCategory\Models\Model as PropertyCategory;
 class Model extends EloquentModel
 {
     use SoftDeletes;
@@ -32,7 +33,11 @@ class Model extends EloquentModel
             $data->save();
         });
     }
-
+    public function category()
+    {
+        return $this->belongsTo(PropertyCategory::class, 'property_category_id');
+    }
+    
     public function scopeActive($q)
     {
         return $q->where('status', 'active');
