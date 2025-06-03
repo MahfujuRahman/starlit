@@ -3,7 +3,12 @@
     <div class="container">
         <div class="row">
             <div class="text-center pb-20">
-                <h2>Starlite News</h2>
+                @if (request()->routeIs('news_category'))
+                    <h2>{{ ucfirst($category->title ?? '') }} News</h2>
+                @else
+                    <h2>Starlite News</h2>
+                @endif
+
             </div>
             <div class="col-lg-8">
                 <div class="ltn__blog-list-wrap">
@@ -92,7 +97,8 @@
                                                     class="fas fa-angle-double-right"></i></a>
                                         </li>
                                     @else
-                                        <li><a href="{{ $blogs->url($blogs->lastPage()) }}"><i class="fas fa-angle-double-right"></i></a></li>
+                                        <li><a href="{{ $blogs->url($blogs->lastPage()) }}"><i
+                                                    class="fas fa-angle-double-right"></i></a></li>
                                     @endif
                                 </ul>
                             </div>

@@ -14,14 +14,14 @@ class NewsController extends Controller
             ->leftJoin('blogs', 'blog_categories.id', '=', 'blogs.blog_category_id')
             ->select('blog_categories.*', DB::raw('COUNT(blogs.id) as blog_count'))
             ->groupBy('blog_categories.id')
-            ->orderBy('blog_count','desc')
+            ->orderBy('blog_count', 'desc')
             ->get();
 
 
         $blogs = DB::table("blogs")
             ->join('blog_categories', 'blogs.blog_category_id', '=', 'blog_categories.id')
             ->select('blogs.*', 'blog_categories.title as category_name')
-            ->paginate(1);
+            ->paginate(10);
 
         $top_rated_blogs_query = DB::table("blogs")
             ->join('blog_categories', 'blogs.blog_category_id', '=', 'blog_categories.id')
@@ -53,11 +53,11 @@ class NewsController extends Controller
     }
     public function news_details($slug)
     {
-           $blog_category = DB::table('blog_categories')
+        $blog_category = DB::table('blog_categories')
             ->leftJoin('blogs', 'blog_categories.id', '=', 'blogs.blog_category_id')
             ->select('blog_categories.*', DB::raw('COUNT(blogs.id) as blog_count'))
             ->groupBy('blog_categories.id')
-            ->orderBy('blog_count','desc')
+            ->orderBy('blog_count', 'desc')
             ->get();
 
         $top_rated_blogs_query = DB::table("blogs")
@@ -82,8 +82,62 @@ class NewsController extends Controller
             ->orderBy('blogs.created_at', 'desc')
             ->limit(5)
             ->get();
+
+        
         return view('frontend.pages.news.news_details.news_details', compact('top_rated_blogs', 'latest_blogs', 'blog_category'));
     }
+
+
+    public function news_category($slug)
+    {
+        $category = DB::table('blog_categories')
+            ->where('slug', $slug)
+            ->first();
+
+        $blog_category = DB::table('blog_categories')
+            ->leftJoin('blogs', 'blog_categories.id', '=', 'blogs.blog_category_id')
+            ->select('blog_categories.*', DB::raw('COUNT(blogs.id) as blog_count'))
+            ->groupBy('blog_categories.id')
+            ->orderBy('blog_count', 'desc')
+            ->get();
+
+
+        $blogs = DB::table("blogs")
+            ->join('blog_categories', 'blogs.blog_category_id', '=', 'blog_categories.id')
+            ->select('blogs.*', 'blog_categories.title as category_name')
+            ->where('blog_categories.slug', $slug)
+            ->paginate(10);
+
+        $top_rated_blogs_query = DB::table("blogs")
+            ->join('blog_categories', 'blogs.blog_category_id', '=', 'blog_categories.id')
+            ->select('blogs.*', 'blog_categories.title as category_name');
+
+        $total_blogs = $top_rated_blogs_query->count();
+
+        if ($total_blogs > 5) {
+            $top_rated_blogs = $top_rated_blogs_query
+                ->inRandomOrder()
+                ->limit(5)
+                ->get();
+        } else {
+            $top_rated_blogs = $top_rated_blogs_query->get();
+        }
+
+
+        $latest_blogs = DB::table("blogs")
+            ->join('blog_categories', 'blogs.blog_category_id', '=', 'blog_categories.id')
+            ->select('blogs.*', 'blog_categories.title as category_name')
+            ->orderBy('blogs.created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view(
+            'frontend.pages.news.news',
+            compact('blogs', 'blog_category', 'top_rated_blogs', 'latest_blogs', 'category')
+        );
+    }
+
+
 
     public function ajaxSearch(Request $request)
     {

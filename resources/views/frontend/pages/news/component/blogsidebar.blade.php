@@ -98,7 +98,7 @@
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
             <ul>
                 @foreach ($blog_category as $category)
-                    <li><a href="#">{{ $category->title ?? ''}} <span>{{ $category->blog_count ?? 0}}</span></a></li>
+                    <li><a href="{{ route('news_category', $category->slug) }}">{{ $category->title ?? ''}} <span>{{ $category->blog_count ?? 0}}</span></a></li>
                 @endforeach
             </ul>
         </div>

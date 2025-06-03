@@ -57,6 +57,7 @@ Route::group([
 
     Route::get('/news', 'FrontendController\NewsController@index')->name('news');
     Route::get('/news/details/{slug}', 'FrontendController\NewsController@news_details')->name('news_details');
+    Route::get('/news/category/{slug}', 'FrontendController\NewsController@news_category')->name('news_category');
     Route::get('/ajax/blog/search', 'FrontendController\NewsController@ajaxSearch')->name('ajax.blog.search');
 
 
