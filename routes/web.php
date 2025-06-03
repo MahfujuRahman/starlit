@@ -62,4 +62,5 @@ Route::group([
 
 
     Route::get('/contact', 'FrontendController\ContactController@index')->name('contact');
+    Route::post('/contact', 'FrontendController\ContactController@store')->name('contact.store');
 });

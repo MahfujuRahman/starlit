@@ -98,7 +98,8 @@
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
             <ul>
                 @foreach ($blog_category as $category)
-                    <li><a href="{{ route('news_category', $category->slug) }}">{{ $category->title ?? ''}} <span>{{ $category->blog_count ?? 0}}</span></a></li>
+                    <li><a href="{{ route('news_category', $category->slug) }}">{{ $category->title ?? ''}}
+                            <span>{{ $category->blog_count ?? 0}}</span></a></li>
                 @endforeach
             </ul>
         </div>
@@ -247,7 +248,8 @@
                                 <a href="{{ route('news_details', $blog->slug) }}">
                                     {{ \Illuminate\Support\Str::limit($blog->title ?? '', 50) }}
                                 </a>
-                            </h6></h6>
+                            </h6>
+                            </h6>
                             <div class="ltn__blog-meta">
                                 <ul>
                                     <li class="ltn__blog-date">
@@ -341,12 +343,33 @@
         <div class="widget ltn__social-media-widget">
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Follow us</h4>
             <div class="ltn__social-media-2">
+                @php
+                    $whatsapp = optional($settingTitles->where('title', 'whatsapp')->first())->values[0]->value ?? null;
+                    $facebook = optional($settingTitles->where('title', 'facebook')->first())->values[0]->value ?? null;
+                    $instagram = optional($settingTitles->where('title', 'instagram')->first())->values[0]->value ?? null;
+                    $linkedin = optional($settingTitles->where('title', 'linkedin')->first())->values[0]->value ?? null;
+                    $youtube = optional($settingTitles->where('title', 'youtube')->first())->values[0]->value ?? null;
+                @endphp
                 <ul>
-                    <li><a href="https://www.facebook.com/StarlitHomesLtd" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="https://www.youtube.com/channel/UC12m7mNR8kV5vSxkM2K9gXA" title="Youtube"><i class="fab fa-youtube"></i></a></li>
-                    <li><a href="https://www.instagram.com/starlit.homes.ltd/" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    @if ($facebook)
+                        <li><a href="{{ $facebook }}" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    @endif
+                    @if ($whatsapp)
+                        <li>
+                            <a href="https://wa.me/{{ preg_replace('/^\+?0*|\s+/', '', $whatsapp) }}" title="Whatsapp" target="_blank">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </li>
+                    @endif
+                    @if ($linkedin)
+                        <li><a href="{{ $linkedin }}" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                    @endif
+                    @if ($youtube)
+                        <li><a href="{{ $youtube }}" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                    @endif
+                    @if ($instagram)
+                        <li><a href="{{ $instagram }}" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    @endif
 
                 </ul>
             </div>
