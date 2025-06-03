@@ -52,95 +52,58 @@
 
         <!-- Top Rated Product Widget -->
         <div class="widget ltn__top-rated-product-widget">
-            <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Rated Product</h4>
+            <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Rated Blog</h4>
             <ul>
-                <li>
-                    <div class="top-rated-product-item clearfix">
-                        <div class="top-rated-product-img">
-                            <a href="product-details.html"><img src="{{ asset('assets/frontend') }}/img/product/1.png"
-                                    alt="#"></a>
-                        </div>
-                        <div class="top-rated-product-info">
-                            <div class="product-ratting">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                </ul>
+                @foreach ($top_rated_blogs as $blog)
+                    <li>
+                        <div class="top-rated-product-item clearfix">
+                            <div class="top-rated-product-img">
+                                <a href="{{ route('news_details', $blog->slug) }}">
+                                    <img src="{{ asset($blog->thumbnail_image ?? 'assets/frontend/img/blog/31.jpg') }}"
+                                        alt="Image">
+                                </a>
                             </div>
-                            <h6><a href="product-details.html">Luxury House In Greenville </a></h6>
-                            <div class="product-price">
-                                <span>$30,000.00</span>
-                                <del>$35,000.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="top-rated-product-item clearfix">
-                        <div class="top-rated-product-img">
-                            <a href="product-details.html"><img src="{{ asset('assets/frontend') }}/img/product/2.png"
-                                    alt="#"></a>
-                        </div>
-                        <div class="top-rated-product-info">
-                            <div class="product-ratting">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                </ul>
-                            </div>
-                            <h6><a href="product-details.html">Apartment with Subunits</a></h6>
-                            <div class="product-price">
-                                <span>$30,000.00</span>
-                                <del>$35,000.00</del>
+                            <div class="top-rated-product-info">
+                                <div class="product-ratting">
+                                    <ul>
+                                        @php
+                                            // Generate a fixed order: full stars, then half, then empty
+                                            $stars = [];
+                                            $fullStars = rand(0, 5);
+                                            $halfStar = ($fullStars < 5 && rand(0, 1)) ? 1 : 0;
+                                            $emptyStars = 5 - $fullStars - $halfStar;
+
+                                            for ($i = 0; $i < $fullStars; $i++) {
+                                                $stars[] = '<li><a href="#"><i class="fas fa-star"></i></a></li>';
+                                            }
+                                            if ($halfStar) {
+                                                $stars[] = '<li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>';
+                                            }
+                                            for ($i = 0; $i < $emptyStars; $i++) {
+                                                $stars[] = '<li><a href="#"><i class="far fa-star"></i></a></li>';
+                                            }
+                                        @endphp
+                                        {!! implode('', $stars) !!}
+                                    </ul>
+                                </div>
+                                <h6><a href="{{ route('news_details', $blog->slug) }}">{{ $blog->title }}</a></h6>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="top-rated-product-item clearfix">
-                        <div class="top-rated-product-img">
-                            <a href="product-details.html"><img src="{{ asset('assets/frontend') }}/img/product/3.png"
-                                    alt="#"></a>
-                        </div>
-                        <div class="top-rated-product-info">
-                            <div class="product-ratting">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-star-half-alt"></i></a></li>
-                                    <li><a href="#"><i class="far fa-star"></i></a></li>
-                                </ul>
-                            </div>
-                            <h6><a href="product-details.html">3 Rooms Manhattan</a></h6>
-                            <div class="product-price">
-                                <span>$30,000.00</span>
-                                <del>$35,000.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <!-- Menu Widget (Category) -->
         <div class="widget ltn__menu-widget ltn__menu-widget-2--- ltn__menu-widget-2-color-2---">
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Top Categories</h4>
             <ul>
-                <li><a href="#">Apartments <span>(26)</span></a></li>
-                <li><a href="#">Picture Stodio <span>(30)</span></a></li>
-                <li><a href="#">Office <span>(71)</span></a></li>
-                <li><a href="#">Luxary Vilas <span>(56)</span></a></li>
-                <li><a href="#">Duplex House <span>(60)</span></a></li>
+                @foreach ($blog_category as $category)
+                    <li><a href="#">{{ $category->title ?? ''}} <span>{{ $category->blog_count ?? 0}}</span></a></li>
+                @endforeach
             </ul>
         </div>
         <!-- Popular Product Widget -->
-        <div class="widget ltn__popular-product-widget">
+        {{-- <div class="widget ltn__popular-product-widget">
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Popular Properties</h4>
             <div class="row ltn__popular-product-widget-active slick-arrow-1">
                 <!-- ltn__product-item -->
@@ -265,87 +228,41 @@
                 </div>
                 <!--  -->
             </div>
-        </div>
+        </div> --}}
         <!-- Popular Post Widget -->
         <div class="widget ltn__popular-post-widget">
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Leatest Blogs</h4>
             <ul>
-                <li>
+                @foreach ($latest_blogs as $blog)
+                    <li></li>
                     <div class="popular-post-widget-item clearfix">
                         <div class="popular-post-widget-img">
-                            <a href="blog-details.html"><img src="{{ asset('assets/frontend') }}/img/team/5.jpg"
-                                    alt="#"></a>
+                            <a href="{{ route('news_details', $blog->slug) }}">
+                                <img src="{{ asset($blog->thumbnail_image ?? 'assets/frontend/img/blog/31.jpg') }}"
+                                    alt="Image">
+                            </a>
                         </div>
                         <div class="popular-post-widget-brief">
-                            <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                    cing elit, sed do.</a></h6>
+                            <h6>
+                                <a href="{{ route('news_details', $blog->slug) }}">
+                                    {{ \Illuminate\Support\Str::limit($blog->title ?? '', 50) }}
+                                </a>
+                            </h6></h6>
                             <div class="ltn__blog-meta">
                                 <ul>
                                     <li class="ltn__blog-date">
-                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
+                                        <a href="#"><i class="far fa-calendar-alt"></i>
+                                            {{ \Carbon\Carbon::parse($blog->publish_date)->format('M d, Y') }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </li>
-                <li>
-                    <div class="popular-post-widget-item clearfix">
-                        <div class="popular-post-widget-img">
-                            <a href="blog-details.html"><img src="{{ asset('assets/frontend') }}/img/team/6.jpg"
-                                    alt="#"></a>
-                        </div>
-                        <div class="popular-post-widget-brief">
-                            <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                    cing elit, sed do.</a></h6>
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-date">
-                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular-post-widget-item clearfix">
-                        <div class="popular-post-widget-img">
-                            <a href="blog-details.html"><img src="{{ asset('assets/frontend') }}/img/team/7.jpg"
-                                    alt="#"></a>
-                        </div>
-                        <div class="popular-post-widget-brief">
-                            <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                    cing elit, sed do.</a></h6>
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-date">
-                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="popular-post-widget-item clearfix">
-                        <div class="popular-post-widget-img">
-                            <a href="blog-details.html"><img src="{{ asset('assets/frontend') }}/img/team/8.jpg"
-                                    alt="#"></a>
-                        </div>
-                        <div class="popular-post-widget-brief">
-                            <h6><a href="blog-details.html">Lorem ipsum dolor sit
-                                    cing elit, sed do.</a></h6>
-                            <div class="ltn__blog-meta">
-                                <ul>
-                                    <li class="ltn__blog-date">
-                                        <a href="#"><i class="far fa-calendar-alt"></i>June 22, 2020</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+
+                @endforeach
+
             </ul>
         </div>
         <!-- Popular Post Widget (Twitter Post) -->
@@ -425,10 +342,11 @@
             <h4 class="ltn__widget-title ltn__widget-title-border-2">Follow us</h4>
             <div class="ltn__social-media-2">
                 <ul>
-                    <li><a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://www.facebook.com/StarlitHomesLtd" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
                     <li><a href="#" title="Twitter"><i class="fab fa-twitter"></i></a></li>
                     <li><a href="#" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="#" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://www.youtube.com/channel/UC12m7mNR8kV5vSxkM2K9gXA" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="https://www.instagram.com/starlit.homes.ltd/" title="Instagram"><i class="fab fa-instagram"></i></a></li>
 
                 </ul>
             </div>
