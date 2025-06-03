@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('/assets/frontend') }}/css/responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/assets/frontend') }}/css/custom.css">
+
+    @stack('custom_css')
 </head>
 
 <body>
@@ -61,6 +63,7 @@
         </div>
     </div>
     <!-- preloader area end -->
+
     <!-- JavaScript -->
     <script>
         // Function to set active button
@@ -73,11 +76,13 @@
         }
     </script>
     <!-- Bootstrap JS (Optional, for interactive components) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jbootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- All JS Plugins -->
     <script src="{{ asset('assets/frontend') }}/js/plugins.js"></script>
     <!-- Main JS -->
     <script src="{{ asset('assets/frontend') }}/js/main.js"></script>
+
+    @stack('custom_js')
 
 </body>
 

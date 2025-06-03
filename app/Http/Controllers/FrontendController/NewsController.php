@@ -17,10 +17,31 @@ class NewsController extends Controller
             ->paginate(1);
 
 
-        return view('frontend.pages.news.news', compact('blogs','blog_category'));
+        return view('frontend.pages.news.news', compact('blogs', 'blog_category'));
     }
     public function news_details($slug)
     {
         return view('frontend.pages.news.news_details.news_details');
+    }
+
+    public function ajaxSearch(Request $request)
+    {
+        $query = $request->get('search');
+
+        $blogs = DB::table("blogs")
+            ->where('title', 'like', "%{$query}%")
+            ->limit(10)
+            ->get();
+
+        if ($blogs->count() > 0) {
+            $output = '';
+            foreach ($blogs as $blog) {
+                $output .= '<a href="' . route('news_details', $blog->slug) . '">' . e($blog->title) . '</a>';
+            }
+        } else {
+            $output = '<p>No results found</p>';
+        }
+
+        return response($output);
     }
 }
