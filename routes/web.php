@@ -56,7 +56,7 @@ Route::group([
     Route::get('/gallery/video', 'FrontendController\GalleryController@video')->name('gallery.video');
 
     Route::get('/news', 'FrontendController\NewsController@index')->name('news');
-    Route::get('/news/details', 'FrontendController\NewsController@news_details')->name('news_details');
+    Route::get('/news/details/{slug}', 'FrontendController\NewsController@news_details')->name('news_details');
 
     Route::get('/contact', 'FrontendController\ContactController@index')->name('contact');
 });
