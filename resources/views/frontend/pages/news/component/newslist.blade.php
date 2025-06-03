@@ -65,46 +65,53 @@
                             </div>
                         </div>
                     @endforeach
+                    <!-- Blog Item End -->
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="ltn__pagination-area text-center">
-                            <div class="ltn__pagination">
-                                <ul>
-                                    {{-- Previous Page Link --}}
-                                    @if ($blogs->onFirstPage())
-                                        <li><a href="{{ $blogs->url(1) }}"><i class="fas fa-angle-double-left"></i></a></li>
-                                    @else
-                                        <li>
-                                            <a href="{{ $blogs->previousPageUrl() }}"><i
-                                                    class="fas fa-angle-double-left"></i></a>
-                                        </li>
-                                    @endif
-
-                                    {{-- Pagination Elements --}}
-                                    @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
-                                        @if ($page == $blogs->currentPage())
-                                            <li class="active"><a href="#">{{ $page }}</a></li>
+                @if ($blogs->isEmpty())
+                    <div class="alert alert-info text-center my-4">
+                        No news articles found.
+                    </div>
+                @else
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ltn__pagination-area text-center">
+                                <div class="ltn__pagination">
+                                    <ul>
+                                        {{-- Previous Page Link --}}
+                                        @if ($blogs->onFirstPage())
+                                            <li><a href="{{ $blogs->url(1) }}"><i class="fas fa-angle-double-left"></i></a></li>
                                         @else
-                                            <li><a href="{{ $url }}">{{ $page }}</a></li>
+                                            <li>
+                                                <a href="{{ $blogs->previousPageUrl() }}"><i
+                                                        class="fas fa-angle-double-left"></i></a>
+                                            </li>
                                         @endif
-                                    @endforeach
 
-                                    {{-- Next Page Link --}}
-                                    @if ($blogs->hasMorePages())
-                                        <li>
-                                            <a href="{{ $blogs->nextPageUrl() }}"><i
-                                                    class="fas fa-angle-double-right"></i></a>
-                                        </li>
-                                    @else
-                                        <li><a href="{{ $blogs->url($blogs->lastPage()) }}"><i
-                                                    class="fas fa-angle-double-right"></i></a></li>
-                                    @endif
-                                </ul>
+                                        {{-- Pagination Elements --}}
+                                        @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
+                                            @if ($page == $blogs->currentPage())
+                                                <li class="active"><a href="#">{{ $page }}</a></li>
+                                            @else
+                                                <li><a href="{{ $url }}">{{ $page }}</a></li>
+                                            @endif
+                                        @endforeach
+
+                                        {{-- Next Page Link --}}
+                                        @if ($blogs->hasMorePages())
+                                            <li>
+                                                <a href="{{ $blogs->nextPageUrl() }}"><i
+                                                        class="fas fa-angle-double-right"></i></a>
+                                            </li>
+                                        @else
+                                            <li><a href="{{ $blogs->url($blogs->lastPage()) }}"><i
+                                                        class="fas fa-angle-double-right"></i></a></li>
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endif
             </div>
 
             @include('frontend.pages.news.component.blogsidebar')

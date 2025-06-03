@@ -51,6 +51,7 @@ class NewsController extends Controller
             compact('blogs', 'blog_category', 'top_rated_blogs', 'latest_blogs')
         );
     }
+    
     public function news_details($slug)
     {
         $blog = DB::table('blogs')->where('slug', $slug)->first();
