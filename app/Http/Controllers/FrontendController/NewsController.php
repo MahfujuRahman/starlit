@@ -53,6 +53,8 @@ class NewsController extends Controller
     }
     public function news_details($slug)
     {
+        $blog = DB::table('blogs')->where('slug', $slug)->first();
+
         $blog_category = DB::table('blog_categories')
             ->leftJoin('blogs', 'blog_categories.id', '=', 'blogs.blog_category_id')
             ->select('blog_categories.*', DB::raw('COUNT(blogs.id) as blog_count'))
@@ -84,7 +86,8 @@ class NewsController extends Controller
             ->get();
 
         
-        return view('frontend.pages.news.news_details.news_details', compact('top_rated_blogs', 'latest_blogs', 'blog_category'));
+        return view('frontend.pages.news.news_details.news_details', 
+        compact('top_rated_blogs', 'latest_blogs', 'blog_category','blog'));
     }
 
 
@@ -136,8 +139,6 @@ class NewsController extends Controller
             compact('blogs', 'blog_category', 'top_rated_blogs', 'latest_blogs', 'category')
         );
     }
-
-
 
     public function ajaxSearch(Request $request)
     {
